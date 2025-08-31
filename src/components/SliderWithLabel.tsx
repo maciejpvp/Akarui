@@ -6,6 +6,7 @@ type Props = {
   min?: number;
   max?: number;
   onChange: (val: number) => void;
+  disabled: boolean;
 };
 
 export const SliderWithLabel = ({
@@ -13,6 +14,7 @@ export const SliderWithLabel = ({
   value,
   min = 1,
   max = 100,
+  disabled,
   onChange,
 }: Props) => {
   const handleChange = (e: number[]) => onChange(e[0]);
@@ -23,6 +25,7 @@ export const SliderWithLabel = ({
         {label} {value}
       </p>
       <Slider
+        disabled={disabled}
         value={[value]}
         onValueChange={handleChange}
         min={min}

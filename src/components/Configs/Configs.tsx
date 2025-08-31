@@ -28,9 +28,10 @@ const presets: Preset[] = [
 type Props = {
   setBrightness: React.Dispatch<React.SetStateAction<number>>;
   setContrast: React.Dispatch<React.SetStateAction<number>>;
+  disabled: boolean;
 };
 
-export const Configs = ({ setBrightness, setContrast }: Props) => {
+export const Configs = ({ setBrightness, setContrast, disabled }: Props) => {
   return (
     <div>
       <h1 className="text-zinc-200">Presets</h1>
@@ -38,6 +39,7 @@ export const Configs = ({ setBrightness, setContrast }: Props) => {
         {presets.map((item) => (
           <li key={item.label}>
             <ConfigItem
+              disabled={disabled}
               item={item}
               setBrightness={setBrightness}
               setContrast={setContrast}
