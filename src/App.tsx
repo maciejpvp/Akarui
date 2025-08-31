@@ -5,7 +5,7 @@ import { Configs } from "./components/Configs/Configs";
 import { OverlayLoader } from "./components/OverlayLoader";
 
 export const App = () => {
-  const [brightness, setBrigtness] = useState<number>(1);
+  const [brightness, setBrightness] = useState<number>(1);
   const [contrast, setContrast] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -44,7 +44,7 @@ export const App = () => {
             disabled={isLoading}
             label="Brigtness"
             value={brightness}
-            onChange={(val: number) => setBrigtness(val)}
+            onChange={(val: number) => setBrightness(val)}
           />
           <SliderWithLabel
             disabled={isLoading}
@@ -54,7 +54,7 @@ export const App = () => {
           />
           <Configs
             disabled={isLoading}
-            setBrightness={setBrigtness}
+            setBrightness={setBrightness}
             setContrast={setContrast}
           />
         </div>
