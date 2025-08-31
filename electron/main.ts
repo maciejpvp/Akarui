@@ -27,7 +27,7 @@ function createWindow() {
     resizable: false,
     alwaysOnTop: true,
     frame: true,
-    icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
+    icon: path.join(process.env.VITE_PUBLIC, "icon.png"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
       contextIsolation: true, // must be true for contextBridge
@@ -37,7 +37,7 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  win.webContents.openDevTools({ mode: "detach" });
+  // win.webContents.openDevTools({ mode: "detach" });
 
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());

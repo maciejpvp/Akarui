@@ -1,11 +1,11 @@
 // @see - https://www.electron.build/configuration/configuration
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "YourAppID",
+  "appId": "akarui",
   "asar": true,
-  "productName": "YourAppName",
+  "productName": "Akarui",
   "directories": {
-    "output": "release/${version}"
+    "output": "builded/${version}"
   },
   "files": [
     "dist",
@@ -38,6 +38,7 @@
     "target": [
       "AppImage"
     ],
+    "icon": "icon",
     "artifactName": "${productName}-Linux-${version}.${ext}"
   }
 }
