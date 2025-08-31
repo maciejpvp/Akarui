@@ -1,9 +1,10 @@
-import { app, BrowserWindow, Menu } from "electron";
-import { createRequire } from "node:module";
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
+// import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { setBrightness, setContrast } from "./utils/monitorUtils";
 
-const require = createRequire(import.meta.url);
+// const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 process.env.APP_ROOT = path.join(__dirname, "..");
@@ -29,6 +30,8 @@ function createWindow() {
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
+      contextIsolation: true, // must be true for contextBridge
+      nodeIntegration: false, // must be false for security
     },
     autoHideMenuBar: true,
   });
@@ -56,6 +59,14 @@ app.on("window-all-closed", () => {
     app.quit();
     win = null;
   }
+});
+
+ipcMain.handle("set-brightness", (_event, value: number) => {
+  return setBrightness(value);
+});
+
+ipcMain.handle("set-contrast", (_event, value: number) => {
+  return setContrast(value);
 });
 
 app.on("activate", () => {

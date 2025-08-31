@@ -1,22 +1,17 @@
 "use strict";
 const electron = require("electron");
-electron.contextBridge.exposeInMainWorld("ipcRenderer", {
-  on(...args) {
-    const [channel, listener] = args;
-    return electron.ipcRenderer.on(channel, (event, ...args2) => listener(event, ...args2));
+electron.contextBridge.exposeInMainWorld("api", {
+  // Commands
+  setBrightness: (value) => {
+    if (value < 0 || value > 100) return;
+    return electron.ipcRenderer.invoke("set-brightness", value);
   },
-  off(...args) {
-    const [channel, ...omit] = args;
-    return electron.ipcRenderer.off(channel, ...omit);
+  setContrast: (value) => {
+    if (value < 0 || value > 100) return;
+    return electron.ipcRenderer.invoke("set-contrast", value);
   },
-  send(...args) {
-    const [channel, ...omit] = args;
-    return electron.ipcRenderer.send(channel, ...omit);
-  },
-  invoke(...args) {
-    const [channel, ...omit] = args;
-    return electron.ipcRenderer.invoke(channel, ...omit);
+  // Optional: listen for messages from main
+  onMessage: (callback) => {
+    electron.ipcRenderer.on("main-process-message", (_event, msg) => callback(msg));
   }
-  // You can expose other APTs you need here.
-  // ...
 });
