@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { SliderWithLabel } from "./components/SliderWithLabel";
 import { Button } from "@/components/ui/button";
+import { Configs } from "./components/Configs/Configs";
 
 export const App = () => {
   const [brightness, setBrigtness] = useState<number>(1);
@@ -43,8 +44,14 @@ export const App = () => {
             value={contrast}
             onChange={(val: number) => setContrast(val)}
           />
+          <Configs setBrightness={setBrigtness} setContrast={setContrast} />
         </div>
-        <Button onClick={handleApply}>Apply</Button>
+        <div className="flex flex-col">
+          <Button onClick={handleApply}>Apply</Button>
+          <p className="text-zinc-400 text-xs pl-1 pt-1">
+            Might take few seconds...
+          </p>
+        </div>
       </div>
     </div>
   );
