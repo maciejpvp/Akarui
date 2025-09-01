@@ -3,6 +3,7 @@ import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { setBrightness, setContrast } from "./utils/monitorUtils";
+import store from "./store";
 
 // const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -37,7 +38,7 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  // win.webContents.openDevTools({ mode: "detach" });
+  win.webContents.openDevTools({ mode: "detach" });
 
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -67,6 +68,17 @@ ipcMain.handle("set-brightness", (_event, value: number) => {
 
 ipcMain.handle("set-contrast", (_event, value: number) => {
   return setContrast(value);
+});
+
+ipcMain.on("electron-store-get", async (event, val) => {
+  event.returnValue = store.get(val);
+});
+ipcMain.on("electron-store-set", async (_event, key, val) => {
+  store.set(key, val);
+});
+
+ipcMain.on("open-devtools", () => {
+  win?.webContents.openDevTools();
 });
 
 app.on("activate", () => {
