@@ -20,9 +20,10 @@ export const SliderWithLabel = ({
   const handleChange = (e: number[]) => onChange(e[0]);
 
   return (
-    <div className="flex flex-col gap-1 items-start justify-center [&_.bg-primary]:bg-amber-300">
-      <p className="text-zinc-200 ">
-        {label} {value}
+    <div className="flex flex-col gap-2 items-start justify-center [&_.bg-primary]:bg-amber-300">
+      <p className="text-zinc-200 gap-1">
+        <span className="font-semibold">{label}</span>{" "}
+        <span className="italic bg-zinc-900 p-2 rounded-md">{value}</span>
       </p>
       <Slider
         disabled={disabled}

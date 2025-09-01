@@ -35,17 +35,20 @@ export const App = () => {
   }, []);
 
   return (
-    <div className="bg-zinc-800 h-screen p-1 flex flex-col gap-5">
+    <div className="bg-zinc-800 h-screen p-1 flex flex-col gap-2">
       {isLoading && <OverlayLoader />}
       <div className="flex flex-col gap-0">
-        <h1 className="text-lg text-zinc-200">Akarui💡</h1>
+        <div className="pl-1 flex flex-row gap-2 items-center">
+          <h1 className="text-lg text-zinc-200">Akarui💡</h1>
+          <h1 className="text-md text-zinc-300">あかるい</h1>
+        </div>
         <div className="border-b border-zinc-300 opacity-90" />
       </div>
-      <div className="flex flex-col justify-between h-full p-2">
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-col justify-between h-[450px] p-2">
+        <div className="flex flex-col gap-6  h-full">
           <SliderWithLabel
             disabled={isLoading}
-            label="Brigtness"
+            label="Brightness"
             value={brightness}
             onChange={(val: number) => setBrightness(val)}
           />
@@ -57,7 +60,7 @@ export const App = () => {
           />
           <Configs disabled={isLoading} />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <Button disabled={isLoading} onClick={handleApply}>
             Apply
           </Button>

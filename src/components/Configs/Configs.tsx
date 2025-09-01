@@ -54,20 +54,31 @@ export const Configs = ({ disabled }: Props) => {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-zinc-200">Presets</h1>
-      <ul className="flex flex-wrap relative gap-2 h-34 overflow-y-scroll custom-scrollbar">
-        {presets.map((item) => (
-          <li key={item.label}>
-            <ConfigItem
-              deletePreset={deletePreset}
-              disabled={disabled}
-              item={item}
-            />
-          </li>
-        ))}
-        <SaveConfigButton savePreset={savePreset} />
+    <div className="h-full relative flex flex-col gap-1">
+      <h1 className="text-zinc-200  pl-1">Presets:</h1>
+      <ul className="flex flex-wrap  gap-2 max-h-[135px] overflow-y-scroll custom-scrollbar">
+        {/* {presets.map((item) => ( */}
+        {/*   <li key={item.label}> */}
+        {/*     <ConfigItem */}
+        {/*       deletePreset={deletePreset} */}
+        {/*       disabled={disabled} */}
+        {/*       item={item} */}
+        {/*     /> */}
+        {/*   </li> */}
+        {/* ))} */}
+        {Array.from({ length: 1 })
+          .flatMap(() => presets)
+          .map((item, index) => (
+            <li key={item.label + index}>
+              <ConfigItem
+                deletePreset={deletePreset}
+                disabled={disabled}
+                item={item}
+              />
+            </li>
+          ))}
       </ul>
+      <SaveConfigButton savePreset={savePreset} />
     </div>
   );
 };

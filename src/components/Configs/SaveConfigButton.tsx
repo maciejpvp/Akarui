@@ -28,7 +28,7 @@ export const SaveConfigButton = ({ savePreset }: Props) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <button className="text-zinc-300 w-10 h-10 rounded-full flex items-center justify-center absolute bottom-3 right-3 hover:scale-110 active:scale-100 transition-all duration-120">
+        <button className="text-zinc-300 bg-zinc-700 w-8 h-8 rounded-full flex items-center justify-center absolute bottom-2 right-2 hover:scale-110 active:scale-100 transition-all duration-120">
           <FaPlus size={18} />
         </button>
       </DrawerTrigger>
