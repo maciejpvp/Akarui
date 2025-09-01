@@ -1,16 +1,41 @@
 {
   "name": "akarui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "build": {
+    "appId": "akarui",
+    "productName": "Akarui",
+    "asar": true,
+    "directories": {
+      "output": "builded/${version}"
+    },
+    "files": [
+      "dist",
+      "dist-electron",
+      "public"
+    ],
     "linux": {
-      "icon": "./public/icon.png"
+      "target": [
+        "AppImage"
+      ],
+      "icon": "public/icon.png"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
     }
   },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
+    "build:electron": "electron-builder",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

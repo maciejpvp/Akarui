@@ -12,6 +12,7 @@ node_modules/
 # Build output
 dist/
 dist-electron/
+dist-electron/*
 builded/
 dist-ssr/
 out/
