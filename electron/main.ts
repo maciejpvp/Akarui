@@ -38,7 +38,6 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-  win.webContents.openDevTools({ mode: "detach" });
 
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -48,6 +47,34 @@ function createWindow() {
     win.loadURL(VITE_DEV_SERVER_URL);
   } else {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
+  }
+
+  if (!app.isPackaged) {
+    // Only enable DevTools shortcut in development
+    win.webContents.on("before-input-event", (event, input) => {
+      if (input.control && input.shift && input.key.toLowerCase() === "i") {
+        win?.webContents.openDevTools({ mode: "detach" });
+        event.preventDefault();
+      }
+    });
+
+    win.webContents.on("did-finish-load", () => {
+      win?.webContents.executeJavaScript(`
+        const devBadge = document.createElement('div');
+        devBadge.innerText = 'DEV';
+        devBadge.style.position = 'fixed';
+        devBadge.style.top = '1px';
+        devBadge.style.right = '10px';
+        devBadge.style.padding = '2px 6px';
+        devBadge.style.background = 'red';
+        devBadge.style.color = 'white';
+        devBadge.style.fontSize = '10px';
+        devBadge.style.fontWeight = 'bold';
+        devBadge.style.borderRadius = '3px';
+        devBadge.style.zIndex = '9999';
+        document.body.appendChild(devBadge);
+      `);
+    });
   }
 }
 
