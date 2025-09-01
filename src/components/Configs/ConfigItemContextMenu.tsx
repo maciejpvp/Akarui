@@ -5,15 +5,19 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 
-export const ConfigItemContextMenu = () => {
+type Props = {
+  children: React.ReactNode;
+  deletePreset: () => void;
+};
+
+export const ConfigItemContextMenu = ({ children, deletePreset }: Props) => {
   return (
     <ContextMenu>
-      <ContextMenuTrigger>Right click</ContextMenuTrigger>
+      <ContextMenuTrigger>{children}</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem>Profile</ContextMenuItem>
-        <ContextMenuItem>Billing</ContextMenuItem>
-        <ContextMenuItem>Team</ContextMenuItem>
-        <ContextMenuItem>Subscription</ContextMenuItem>
+        <ContextMenuItem variant="destructive" onClick={deletePreset}>
+          Delete
+        </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   );

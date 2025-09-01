@@ -20,6 +20,11 @@ type Props = {
 export const SaveConfigButton = ({ savePreset }: Props) => {
   const [label, setLabel] = useState<string>("");
 
+  const handleSave = () => {
+    savePreset(label);
+    document.getElementById("closeButton")?.click();
+  };
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -41,13 +46,13 @@ export const SaveConfigButton = ({ savePreset }: Props) => {
               onChange={(e) => setLabel(e.target.value)}
               placeholder="new config..."
             />
-            <Button variant="secondary" onClick={() => savePreset(label)}>
+            <Button variant="secondary" onClick={handleSave}>
               Submit
             </Button>
           </div>
           <DrawerFooter>
             <DrawerClose asChild>
-              <Button variant="link">
+              <Button id="closeButton" variant="link">
                 <span className="text-sm text-zinc-300">Cancel</span>
               </Button>
             </DrawerClose>
