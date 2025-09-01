@@ -11,8 +11,15 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
-export const SaveConfigButton = () => {
+type Props = {
+  savePreset: (label: string) => void;
+};
+
+export const SaveConfigButton = ({ savePreset }: Props) => {
+  const [label, setLabel] = useState<string>("");
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -29,8 +36,14 @@ export const SaveConfigButton = () => {
             </DrawerDescription>
           </DrawerHeader>
           <div className="flex flex-row gap-2">
-            <Input placeholder="new config..." />
-            <Button variant="secondary">Submit</Button>
+            <Input
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+              placeholder="new config..."
+            />
+            <Button variant="secondary" onClick={() => savePreset(label)}>
+              Submit
+            </Button>
           </div>
           <DrawerFooter>
             <DrawerClose asChild>

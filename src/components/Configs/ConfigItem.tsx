@@ -1,20 +1,16 @@
+import { useDataStore } from "@/store/dataStore";
 import { Preset } from "./Configs";
 import { Button } from "@/components/ui/button";
 
 type Props = {
   item: Preset;
-  setBrightness: React.Dispatch<React.SetStateAction<number>>;
-  setContrast: React.Dispatch<React.SetStateAction<number>>;
   disabled: boolean;
 };
 
-export const ConfigItem = ({
-  item,
-  setBrightness,
-  setContrast,
-  disabled,
-}: Props) => {
+export const ConfigItem = ({ item, disabled }: Props) => {
   const { label, data } = item;
+  const setBrightness = useDataStore((store) => store.setBrightness);
+  const setContrast = useDataStore((store) => store.setContrast);
 
   const handleClick = () => {
     setBrightness(data.brightness);

@@ -3,10 +3,13 @@ import { SliderWithLabel } from "./components/SliderWithLabel";
 import { Button } from "@/components/ui/button";
 import { Configs } from "./components/Configs/Configs";
 import { OverlayLoader } from "./components/OverlayLoader";
+import { useDataStore } from "./store/dataStore";
 
 export const App = () => {
-  const [brightness, setBrightness] = useState<number>(1);
-  const [contrast, setContrast] = useState<number>(1);
+  const brightness = useDataStore((store) => store.brightness);
+  const contrast = useDataStore((store) => store.contrast);
+  const setBrightness = useDataStore((store) => store.setBrightness);
+  const setContrast = useDataStore((store) => store.setContrast);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleApply = async () => {
@@ -52,11 +55,7 @@ export const App = () => {
             value={contrast}
             onChange={(val: number) => setContrast(val)}
           />
-          <Configs
-            disabled={isLoading}
-            setBrightness={setBrightness}
-            setContrast={setContrast}
-          />
+          <Configs disabled={isLoading} />
         </div>
         <div className="flex flex-col">
           <Button disabled={isLoading} onClick={handleApply}>
